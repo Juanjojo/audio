@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juanjo Cabrera</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+    background: #2139A3; color: #EDE7DA;
+    font-family: Inter, system-ui, sans-serif; text-align: center; padding: 24px;
+  }
+  h1 { font-weight: 900; font-size: clamp(40px, 12vw, 72px); letter-spacing: -0.04em; line-height: .95; }
+  p { color: #fff; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+  button {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 2px solid #fff; background: transparent; color: #EDE7DA;
+    font-size: 48px; cursor: pointer;
+  }
+  button:active { transform: scale(.96); }
+  .firma { font-size: 12px; opacity: .8; }
+</style>
+</head>
+<body>
+  <h1>Escúchame</h1>
+  <button id="play" aria-label="Reproducir audio">▶</button>
+  <p>Pulsa para escuchar</p>
+  <span class="firma">Juanjo Cabrera · CEO de INSPIDE</span>
+
+  <audio id="audio" src="audio.mp3" preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const btn = document.getElementById('play');
+    btn.addEventListener('click', () => {
+      if (audio.paused) { audio.play(); btn.textContent = '❚❚'; }
+      else { audio.pause(); btn.textContent = '▶'; }
+    });
+    audio.addEventListener('ended', () => btn.textContent = '▶');
+    // Intento de autoplay (algunos navegadores lo permiten; si no, queda el botón)
+    audio.play().then(() => btn.textContent = '❚❚').catch(() => {});
+  </script>
+</body>
+</html>
